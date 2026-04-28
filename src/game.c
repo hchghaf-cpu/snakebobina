@@ -203,8 +203,21 @@ void GameInit(Game *game, int screen_width, int screen_height) {
 }
 
 static void GameHandleAuthInput(Game *game) {
+    Rectangle toggle = (Rectangle){180.0f, 270.0f, 320.0f, 36.0f};
+    Vector2 mouse = GetMousePosition();
+
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mouse, toggle)) {
+        game->auth_is_register = !game->auth_is_register;
+    }
+
     int key = GetCharPressed();
     while (key > 0) {
+        if (key == '4') {
+            game->auth_is_register = !game->auth_is_register;
+            key = GetCharPressed();
+            continue;
+        }
+
         if (key >= 32 && key <= 126 && game->username_len < (MAX_NAME - 1)) {
             game->username[game->username_len++] = (char)key;
             game->username[game->username_len] = '\0';
@@ -216,7 +229,7 @@ static void GameHandleAuthInput(Game *game) {
         game->username[--game->username_len] = '\0';
     }
 
-    if (IsKeyPressed(KEY_FOUR)) {
+    if (IsKeyPressed(KEY_FOUR) || IsKeyPressed(KEY_KP_4)) {
         game->auth_is_register = !game->auth_is_register;
     }
 
@@ -409,7 +422,11 @@ static void GameDrawAuth(const Game *game) {
     DrawRectangleLines(300, 225, 60, 28, (Color){200, 200, 200, 255});
 
     DrawText("Left/Right to change", 380, 230, 16, text_color);
-    DrawText("Press 4 to switch Login/Register", 180, 280, 18, text_color);
+    Rectangle toggle = (Rectangle){180.0f, 270.0f, 320.0f, 36.0f};
+    DrawRectangleRec(toggle, (Color){35, 35, 35, 255});
+    DrawRectangleLinesEx(toggle, 1.0f, (Color){80, 80, 80, 255});
+    DrawText("Press 4 to switch Login/Register", 190, 280, 18, text_color);
+    DrawText("Click here to switch", 190, 302, 14, text_color);
     DrawText("Enter to confirm", 180, 310, 18, text_color);
     DrawText("Press 3 to exit", 180, 340, 18, text_color);
 
