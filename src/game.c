@@ -216,7 +216,7 @@ static void GameHandleAuthInput(Game *game) {
         game->username[--game->username_len] = '\0';
     }
 
-    if (IsKeyPressed(KEY_TAB)) {
+    if (IsKeyPressed(KEY_FOUR)) {
         game->auth_is_register = !game->auth_is_register;
     }
 
@@ -409,7 +409,7 @@ static void GameDrawAuth(const Game *game) {
     DrawRectangleLines(300, 225, 60, 28, (Color){200, 200, 200, 255});
 
     DrawText("Left/Right to change", 380, 230, 16, text_color);
-    DrawText("Tab to switch Login/Register", 180, 280, 18, text_color);
+    DrawText("Press 4 to switch Login/Register", 180, 280, 18, text_color);
     DrawText("Enter to confirm", 180, 310, 18, text_color);
     DrawText("Press 3 to exit", 180, 340, 18, text_color);
 
