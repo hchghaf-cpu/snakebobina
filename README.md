@@ -21,8 +21,11 @@ If your Raylib installation is in a different location, adjust `-I` and `-L`.
 ## Controls
 
 - Arrow keys: move
-- Enter: start game or restart after Game Over
-- Space: start game
+- 1: open game (go to login/register)
+- 3: close game
+- Enter: confirm login/register or restart after Game Over
+- Tab: switch login/register
+- Left/Right: change team color
 - P: pause/resume
 
 ## Notes

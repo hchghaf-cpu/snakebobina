@@ -8,7 +8,8 @@ typedef struct Food {
     int y;
 } Food;
 
-void FoodSpawn(Food *food, const struct Snake *snake, int grid_size, int screen_width, int screen_height);
+void FoodSpawn(Food *food, const struct Snake *snakes, int snake_count, const Food *foods, int food_count,
+               int grid_size, int screen_width, int screen_height);
 void FoodDraw(const Food *food, int grid_size);
 
 #endif

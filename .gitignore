@@ -1,0 +1,8 @@
+# Build outputs
+snake.exe
+snake-win64.zip
+dist/
+
+# OS files
+.DS_Store
+Thumbs.db

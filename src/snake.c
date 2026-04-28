@@ -21,13 +21,10 @@ static void SnakeEnsureCapacity(Snake *snake, int needed) {
     snake->capacity = new_capacity;
 }
 
-void SnakeInit(Snake *snake, int grid_size, int screen_width, int screen_height) {
+void SnakeInit(Snake *snake, int grid_size, int screen_width, int screen_height, int start_x, int start_y) {
     snake->capacity = 64;
     snake->length = 3;
     snake->segments = (SnakeSegment *)MemAlloc(sizeof(SnakeSegment) * snake->capacity);
-
-    int start_x = (screen_width / grid_size) / 2;
-    int start_y = (screen_height / grid_size) / 2;
 
     for (int i = 0; i < snake->length; i++) {
         snake->segments[i].x = start_x - i;
@@ -94,6 +91,19 @@ int SnakeCheckSelfCollision(const Snake *snake) {
     return 0;
 }
 
+int SnakeCheckCollisionWithSnake(const Snake *snake, const Snake *other) {
+    int head_x = snake->segments[0].x;
+    int head_y = snake->segments[0].y;
+
+    for (int i = 0; i < other->length; i++) {
+        if (other->segments[i].x == head_x && other->segments[i].y == head_y) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 int SnakeCheckFoodCollision(const Snake *snake, const Food *food) {
     return snake->segments[0].x == food->x && snake->segments[0].y == food->y;
 }
@@ -107,11 +117,11 @@ int SnakeOccupiesCell(const Snake *snake, int x, int y) {
     return 0;
 }
 
-void SnakeDraw(const Snake *snake, int grid_size) {
+void SnakeDraw(const Snake *snake, int grid_size, Color head_color, Color body_color) {
     for (int i = 0; i < snake->length; i++) {
         int px = snake->segments[i].x * grid_size;
         int py = snake->segments[i].y * grid_size;
-        Color color = (i == 0) ? (Color){80, 220, 120, 255} : (Color){50, 180, 90, 255};
+        Color color = (i == 0) ? head_color : body_color;
         DrawRectangle(px, py, grid_size, grid_size, color);
     }
 }

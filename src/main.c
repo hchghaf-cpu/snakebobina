@@ -11,7 +11,7 @@ int main(void) {
     Game game;
     GameInit(&game, screen_width, screen_height);
 
-    while (!WindowShouldClose()) {
+    while (!WindowShouldClose() && !game.request_exit) {
         GameUpdate(&game);
 
         BeginDrawing();
